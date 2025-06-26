@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Next Level AI Chatbot</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      width: 400px;
+      height: 600px;
+      background: #202020;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    }
+    .chat-header {
+      background: #0d0d0d;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      border-bottom: 1px solid #333;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+    .user {
+      background: #007bff;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #333;
+      align-self: flex-start;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #333;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+      background: #111;
+      color: #fff;
+      font-size: 14px;
+    }
+    .chat-input button {
+      padding: 0 20px;
+      background: #00bfff;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .chat-input button:hover {
+      background: #0099cc;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">⚡ AI Chatbot (Next Level) ⚡</div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + sender;
+      msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botReply(userText) {
+      const lowerText = userText.toLowerCase();
+
+      let responses = [
+        "Hmm interesting... 🤔",
+        "Bhai tu toh smart lagta hai!",
+        "Yeh toh next level baat hai 🔥",
+        "AI ke saath chat kar raha hai, maze le 😎",
+        "Aur kuch puchna hai bhai?"
+      ];
+
+      if(lowerText.includes("hello") || lowerText.includes("hi")) {
+        return "Hello bhai! Main tera AI chatbot hoon. 🔥";
+      }
+      if(lowerText.includes("kaun") || lowerText.includes("who")) {
+        return "Main ek next-level AI chatbot hoon, Chatbhai ne banaya hai 💻.";
+      }
+      if(lowerText.includes("openai")) {
+        return "OpenAI ke bina bhi full AI feel de raha hoon 😎.";
+      }
+      if(lowerText.includes("kya kar sakte ho")) {
+        return "Bhai main tere saath mast AI-style baat kar sakta hoon, realistic lagne wala.";
+      }
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (text === '') return;
+
+      appendMessage(text, 'user');
+      userInput.value = '';
+
+      setTimeout(() => {
+        const reply = botReply(text);
+        appendMessage(reply, 'bot');
+      }, 800);
+    }
+
+    userInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>
